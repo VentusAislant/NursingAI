@@ -27,15 +27,75 @@ from xtuner.model import SupervisedFinetune
 from xtuner.parallel.sequence import SequenceParallelSampler
 from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 
+
+def nursing_ai_map_fn(example):
+    r"""Example before preprocessing:
+    Example before preprocessing:
+        example['conversation'] = [
+            {
+                "role": "user",
+                "role_name": "护士",
+                'value': 'Can you explain xxx'
+            },
+            {
+                "role": "model",
+                "role_name": "患者",
+                'value': 'Sure! xxx'
+            },
+            {
+                "role": "user",
+                "role_name": "护士",
+                'value': 'I didn't understand how xxx',
+            },
+            {
+                "role": "model",
+                "role_name": "患者",
+                'value': 'It has to do with a process xxx.'
+            }
+        ]
+    Example after preprocessing:
+        example['conversation'] = [
+            {
+                'input': 'Can you explain xxx',
+                'output': 'Sure! xxx'
+            },
+            {
+                'input': 'I didn't understand how xxx',
+                'output': 'It has to do with a process xxx.'
+            }
+        ]
+    """
+    idx = example['id']
+    info = example['info']
+    num_turns = example['num_turns']
+    conversations = example['conversations']
+    assert len(conversations) % 2 == 0
+
+    to_return_conversation = []
+    for i in range(0, len(conversations), 2):
+        turn_1 = conversations[i]['value']
+        turn_2 = conversations[i + 1]['value']
+        single_turn_conversation = dict(
+            input=turn_1,
+            output=turn_2
+        )
+        to_return_conversation.append(single_turn_conversation)
+
+    return dict(
+        conversation=to_return_conversation,
+        idx=idx,
+        num_turns=num_turns,
+        info=info,
+    )
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
 # Model
-pretrained_model_name_or_path = "meta-llama/Meta-Llama-3-8B-Instruct"
+pretrained_model_name_or_path = "pretrained_models/MMed-Llama-3-8B"
 use_varlen_attn = False
 
 # Data
-alpaca_en_path = "tatsu-lab/alpaca"
+data_path = "./data/patient/data.json"
 prompt_template = PROMPT_TEMPLATE.llama3_chat
 max_length = 2048
 pack_to_max_length = True
@@ -44,11 +104,11 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 1  # per_device
-accumulative_counts = 16
+batch_size = 8  # per_device
+accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
-max_epochs = 3
+max_epochs = 9
 optim_type = AdamW
 lr = 2e-4
 betas = (0.9, 0.999)
@@ -62,8 +122,12 @@ save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 500
-SYSTEM = SYSTEM_TEMPLATE.alpaca
-evaluation_inputs = ["请给我介绍五个上海的景点", "Please tell me five scenic spots in Shanghai"]
+SYSTEM = """您是一位正在接受护理学生问诊的患者或患者家属。您的任务是配合护理学生进行临床问诊训练，帮助其提升信息采集与沟通能力。你需要按照下列的步骤进行逐步思考：
+步骤1：请根据护理学生所设定的疾病类型，扮演该类患者或家属，表现出符合病情的主诉、症状、情绪和个人背景。
+步骤2：在对答过程中，请依据护理学生的提问，结合角色特点，给予真实、具体的回答。必要时可表现出困惑、回避或情绪反应，以增强临床对话的真实感。
+"""
+
+evaluation_inputs = ["请模拟一位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，与我进行护理问诊。", "好的，我来扮演这位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，我们开始对话吧。"]
 
 #######################################################################
 #                      PART 2  Model & Tokenizer                      #
@@ -96,8 +160,8 @@ model = dict(
     ),
     lora=dict(
         type=LoraConfig,
-        r=64,
-        lora_alpha=16,
+        r=32,
+        lora_alpha=32,
         lora_dropout=0.1,
         bias="none",
         task_type="CAUSAL_LM",
@@ -107,12 +171,17 @@ model = dict(
 #######################################################################
 #                      PART 3  Dataset & Dataloader                   #
 #######################################################################
-alpaca_en = dict(
+train_dataset = dict(
     type=process_hf_dataset,
-    dataset=dict(type=load_dataset, path=alpaca_en_path),
+    dataset=dict(
+        type=load_dataset,
+        path='json',
+        data_files=dict(train=data_path)
+    ),
     tokenizer=tokenizer,
     max_length=max_length,
-    dataset_map_fn=alpaca_map_fn,
+    # dataset_map_fn=oasst1_map_fn,
+    dataset_map_fn=nursing_ai_map_fn,
     template_map_fn=dict(type=template_map_fn_factory, template=prompt_template),
     remove_unused_columns=True,
     shuffle_before_pack=True,
@@ -121,10 +190,11 @@ alpaca_en = dict(
 )
 
 sampler = SequenceParallelSampler if sequence_parallel_size > 1 else DefaultSampler
+
 train_dataloader = dict(
     batch_size=batch_size,
     num_workers=dataloader_num_workers,
-    dataset=alpaca_en,
+    dataset=train_dataset,
     sampler=dict(type=sampler, shuffle=True),
     collate_fn=dict(type=default_collate_fn, use_varlen_attn=use_varlen_attn),
 )
