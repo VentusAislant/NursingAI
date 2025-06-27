@@ -80,6 +80,13 @@ def nursing_ai_map_fn(example):
             output=turn_2
         )
         to_return_conversation.append(single_turn_conversation)
+
+    print(dict(
+        conversation=to_return_conversation,
+        idx=idx,
+        num_turns=num_turns,
+        info=info,
+    ))
     return dict(
         conversation=to_return_conversation,
         idx=idx,
@@ -105,7 +112,7 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 32  # per_device
+batch_size = 8  # per_device
 accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0

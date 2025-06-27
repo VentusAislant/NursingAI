@@ -9,9 +9,14 @@ conda activate nursing_ai
 2. Install XTuner
 
 ```bash
+pip installt torch torchvision
+
 git clone https://github.com/InternLM/xtuner.git
 cd xtuner
 pip install -e '.[all]'
+
+# if error `RuntimeError: Failed to import transformers.integrations.bitsandbytes because of the following error (look up to see its traceback): No module named triton.ops`
+pip install bitsandbytes --upgrade
 ```
 
 ## Fine-tune
