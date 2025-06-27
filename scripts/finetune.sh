@@ -9,6 +9,6 @@ ROLE="patient"
 # [32, 64]
 LORA_RANK=32
 
-CFG_PATH="./configs/${BASE_MODEL}/${ROLE}${LORA_RANK}.py"
+CFG_PATH="./configs/${BASE_MODEL}/${ROLE}_lora${LORA_RANK}.py"
 
 xtuner train $CFG_PATH --deepspeed deepspeed_zero3
