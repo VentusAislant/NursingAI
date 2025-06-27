@@ -6,6 +6,9 @@ BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
 # ["patient", "expert", "teacher"]
 ROLE="patient"
 
-CFG_PATH="./configs/${BASE_MODEL}/${ROLE}.py"
+# [32, 64]
+LORA_RANK=32
+
+CFG_PATH="./configs/${BASE_MODEL}/${ROLE}${LORA_RANK}.py"
 
 xtuner train $CFG_PATH --deepspeed deepspeed_zero3
