@@ -175,7 +175,11 @@ model = dict(
 #######################################################################
 train_dataset = dict(
     type=process_hf_dataset,
-    dataset=dict(type=load_dataset, path=data_path),
+    dataset=dict(
+        type=load_dataset,
+        path='json',
+        data_files=dict(train=data_path)
+    ),
     tokenizer=tokenizer,
     max_length=max_length,
     # dataset_map_fn=oasst1_map_fn,
