@@ -24,7 +24,7 @@ for base_model in "${BASE_MODELS[@]}"; do
             
             # Run the training command
             echo "Executing: xtuner train $CFG_PATH --deepspeed deepspeed_zero3"
-            xtuner train "$CFG_PATH" --deepspeed deepspeed_zero3
+            xtuner train "$CFG_PATH" --deepspeed deepspeed_zero3 --work-dir "work_dirs/${BASE_MODELS}/${ROLE}/"
             
             # Add a separator between runs
             echo "--------------------------------------------------"
