@@ -95,7 +95,7 @@ pretrained_model_name_or_path = "pretrained_models/MMed-Llama-3-8B"
 use_varlen_attn = False
 
 # Data
-data_path = "./data/patient/data.json"
+data_path = "./data/teacher/data.json"
 prompt_template = PROMPT_TEMPLATE.llama3_chat
 max_length = 2048
 pack_to_max_length = True

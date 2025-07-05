@@ -119,11 +119,11 @@ max_norm = 1  # grad clip
 warmup_ratio = 0.03
 
 # Save
-save_steps = 500
-save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
+save_steps = 5
+save_total_limit = 4  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
-evaluation_freq = 500
+evaluation_freq = 5000
 SYSTEM = """您是一位正在接受护理学生问诊的患者或患者家属。您的任务是配合护理学生进行临床问诊训练，帮助其提升信息采集与沟通能力。你需要按照下列的步骤进行逐步思考：
 步骤1：请根据护理学生所设定的疾病类型，扮演该类患者或家属，表现出符合病情的主诉、症状、情绪和个人背景。
 步骤2：在对答过程中，请依据护理学生的提问，结合角色特点，给予真实、具体的回答。必要时可表现出困惑、回避或情绪反应，以增强临床对话的真实感。
@@ -269,7 +269,7 @@ default_hooks = dict(
     # save checkpoint per `save_steps`.
     checkpoint=dict(
         type=CheckpointHook,
-        by_epoch=False,
+        by_epoch=True,
         interval=save_steps,
         max_keep_ckpts=save_total_limit,
     ),

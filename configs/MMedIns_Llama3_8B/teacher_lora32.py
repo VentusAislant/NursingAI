@@ -95,7 +95,7 @@ pretrained_model_name_or_path = "pretrained_models/MMed-Llama-3-8B"
 use_varlen_attn = False
 
 # Data
-data_path = "./data/patient/data.json"
+data_path = "./data/teacher/data.json"
 prompt_template = PROMPT_TEMPLATE.llama3_chat
 max_length = 2048
 pack_to_max_length = True
@@ -160,8 +160,8 @@ model = dict(
     ),
     lora=dict(
         type=LoraConfig,
-        r=64,
-        lora_alpha=64,
+        r=32,
+        lora_alpha=32,
         lora_dropout=0.1,
         bias="none",
         task_type="CAUSAL_LM",

@@ -6,7 +6,7 @@ export CUDA_VISIBLE_DEVICES=1
 # Define the variables to iterate over
 BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B" "MMedIns_Llama3_8B")
 #ROLES=("patient" "expert" "teacher")
-ROLES=("patient")
+ROLES=("patient" "teacher")
 LORA_RANKS=(32 64)
 
 # Loop through all combinations
@@ -24,7 +24,7 @@ for base_model in "${BASE_MODELS[@]}"; do
             
             # Run the training command
             echo "Executing: xtuner train $CFG_PATH --deepspeed deepspeed_zero3"
-            xtuner train "$CFG_PATH" --deepspeed deepspeed_zero3 --work-dir "work_dirs/${BASE_MODELS}/${ROLE}/"
+            xtuner train "$CFG_PATH" --deepspeed deepspeed_zero3 --work-dir "work_dirs/${base_model}/${role}/lora_${lora_rank}"
             
             # Add a separator between runs
             echo "--------------------------------------------------"
