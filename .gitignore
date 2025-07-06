@@ -3,6 +3,9 @@ data*
 pretrained_models/
 pretrained_models*
 
+work_dirs/
+work_dirs*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
