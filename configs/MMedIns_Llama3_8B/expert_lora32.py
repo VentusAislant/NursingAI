@@ -75,7 +75,7 @@ batch_size = 1  # per_device
 accumulative_counts = 4
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
-max_epochs = 20
+max_epochs = 30
 optim_type = AdamW
 lr = 2e-4
 betas = (0.9, 0.999)
@@ -84,7 +84,7 @@ max_norm = 1  # grad clip
 warmup_ratio = 0.03
 
 # Save
-save_steps = 500
+save_steps = 980
 save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training

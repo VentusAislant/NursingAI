@@ -27,66 +27,26 @@ from xtuner.model import SupervisedFinetune
 from xtuner.parallel.sequence import SequenceParallelSampler
 from xtuner.utils import PROMPT_TEMPLATE
 
-
 def nursing_ai_map_fn(example):
-    r"""Example before preprocessing:
-    Example before preprocessing:
-        example['conversation'] = [
-            {
-                "role": "user",
-                "role_name": "护士",
-                'value': 'Can you explain xxx'
-            },
-            {
-                "role": "model",
-                "role_name": "患者",
-                'value': 'Sure! xxx'
-            },
-            {
-                "role": "user",
-                "role_name": "护士",
-                'value': 'I didn't understand how xxx',
-            },
-            {
-                "role": "model",
-                "role_name": "患者",
-                'value': 'It has to do with a process xxx.'
-            }
-        ]
+    r"""
     Example after preprocessing:
         example['conversation'] = [
             {
                 'input': 'Can you explain xxx',
                 'output': 'Sure! xxx'
             },
-            {
-                'input': 'I didn't understand how xxx',
-                'output': 'It has to do with a process xxx.'
-            }
         ]
     """
-    idx = example['id']
-    info = example['info']
-    num_turns = example['num_turns']
-    conversations = example['conversations']
-    assert len(conversations) % 2 == 0
-
-    to_return_conversation = []
-    for i in range(0, len(conversations), 2):
-        turn_1 = conversations[i]['value']
-        turn_2 = conversations[i + 1]['value']
-        single_turn_conversation = dict(
-            input=turn_1,
-            output=turn_2
-        )
-        to_return_conversation.append(single_turn_conversation)
+    input = example['question']
+    output = example['answer']
+    to_return_conversation = [
+        {"input": input, "output": output},
+    ]
 
     return dict(
-        conversation=to_return_conversation,
-        idx=idx,
-        num_turns=num_turns,
-        info=info,
+        conversation=to_return_conversation
     )
+
 
 
 #######################################################################
@@ -106,11 +66,11 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 30  # per_device
+batch_size = 4  # per_device
 accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
-max_epochs = 20  # 447 * 20 = 8940
+max_epochs = 30  # 447 * 20 = 8940
 optim_type = AdamW
 lr = 2e-4
 betas = (0.9, 0.999)
@@ -119,7 +79,7 @@ max_norm = 1  # grad clip
 warmup_ratio = 0.03
 
 # Save
-save_steps = 75
+save_steps = 45
 save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training

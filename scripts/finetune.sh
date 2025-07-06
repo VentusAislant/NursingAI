@@ -5,7 +5,7 @@ BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
 #BASE_MODEL="MMedIns_Llama3_8B"
 
 # ["patient", "expert", "teacher"]
-ROLE="patient"
+ROLE="teacher"
 
 # [32, 64]
 LORA_RANK=32

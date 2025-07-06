@@ -9,9 +9,9 @@ ROLES=("patient" "teacher" "expert")
 LORA_RANKS=(32)
 
 # Loop through all combinations
-for base_model in "${BASE_MODELS[@]}"; do
+for lora_rank in "${LORA_RANKS[@]}"; do
     for role in "${ROLES[@]}"; do
-        for lora_rank in "${LORA_RANKS[@]}"; do
+        for base_model in "${BASE_MODELS[@]}"; do
             echo "--------------------------------------------------"
             echo "Running training with:"
             echo "BASE_MODEL: $base_model"
