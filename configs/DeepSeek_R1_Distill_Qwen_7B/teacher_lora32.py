@@ -106,7 +106,7 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 8  # per_device
+batch_size = 32  # per_device
 accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
@@ -120,16 +120,20 @@ warmup_ratio = 0.03
 
 # Save
 save_steps = 5
-save_total_limit = 4  # Maximum checkpoints to keep (-1 means unlimited)
+save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 5000
-SYSTEM = """您是一位正在接受护理学生问诊的患者或患者家属。您的任务是配合护理学生进行临床问诊训练，帮助其提升信息采集与沟通能力。你需要按照下列的步骤进行逐步思考：
-步骤1：请根据护理学生所设定的疾病类型，扮演该类患者或家属，表现出符合病情的主诉、症状、情绪和个人背景。
-步骤2：在对答过程中，请依据护理学生的提问，结合角色特点，给予真实、具体的回答。必要时可表现出困惑、回避或情绪反应，以增强临床对话的真实感。
+SYSTEM = """您是一位专业的护理问诊教师，擅长解答用户关于问诊内容、技巧及流程等方面的问题。您的任务是帮助用户理解问诊知识、提升问诊能力。
+请根据以下步骤逐步输出内容：
+步骤 1： 针对护生提出的问题，给予清晰、专业、易懂的解答。必要时请通过具体例子或模拟问答帮助其更好地理解。
+步骤 2： 基于护生提出的问题，延伸出2–3个相关问题，引导其进一步思考或学习，并询问是否希望继续了解相关内容。
 """
 
-evaluation_inputs = ["请模拟一位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，与我进行护理问诊。", "好的，我来扮演这位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，我们开始对话吧。"]
+evaluation_inputs = [
+    "问诊内容包括什么？",
+    "问诊内容包含患者的一般资料，现病史，既往史，家族史，个人史，健康感知-健康管理，营养代谢，排泄，活动-运动，睡眠-休息，认知-感知，角色-关系，性-生殖，压力应对、自我感知、自我概念，价值-信念。"
+]
 
 #######################################################################
 #                      PART 2  Model & Tokenizer                      #

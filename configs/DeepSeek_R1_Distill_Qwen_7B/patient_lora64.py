@@ -120,7 +120,7 @@ warmup_ratio = 0.03
 
 # Save
 save_steps = 5
-save_total_limit = 4  # Maximum checkpoints to keep (-1 means unlimited)
+save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 5000

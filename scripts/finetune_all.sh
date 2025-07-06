@@ -5,8 +5,7 @@ export CUDA_VISIBLE_DEVICES=1
 
 # Define the variables to iterate over
 BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B" "MMedIns_Llama3_8B")
-#ROLES=("patient" "expert" "teacher")
-ROLES=("patient" "teacher")
+ROLES=("patient" "teacher" "expert")
 LORA_RANKS=(32 64)
 
 # Loop through all combinations

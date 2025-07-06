@@ -16,7 +16,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from xtuner.dataset import process_hf_dataset
 from xtuner.dataset.collate_fns import default_collate_fn
-from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
+from xtuner.dataset.map_fns import oasst1_map_fn, template_map_fn_factory
 from xtuner.engine.hooks import (
     DatasetInfoHook,
     EvaluateChatHook,
@@ -25,7 +25,7 @@ from xtuner.engine.hooks import (
 from xtuner.engine.runner import TrainLoop
 from xtuner.model import SupervisedFinetune
 from xtuner.parallel.sequence import SequenceParallelSampler
-from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
+from xtuner.utils import PROMPT_TEMPLATE
 
 
 def nursing_ai_map_fn(example):
@@ -87,6 +87,8 @@ def nursing_ai_map_fn(example):
         num_turns=num_turns,
         info=info,
     )
+
+
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
@@ -96,7 +98,7 @@ use_varlen_attn = False
 
 # Data
 data_path = "./data/patient/data.json"
-prompt_template = PROMPT_TEMPLATE.llama3_chat
+prompt_template = PROMPT_TEMPLATE.qwen_chat
 max_length = 2048
 pack_to_max_length = True
 
@@ -118,7 +120,7 @@ warmup_ratio = 0.03
 
 # Save
 save_steps = 5
-save_total_limit = 4  # Maximum checkpoints to keep (-1 means unlimited)
+save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 5000
@@ -137,6 +139,7 @@ tokenizer = dict(
     pretrained_model_name_or_path=pretrained_model_name_or_path,
     trust_remote_code=True,
     padding_side="right",
+    eos_token="<|im_end|>",
 )
 
 model = dict(
