@@ -106,11 +106,11 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 32  # per_device
+batch_size = 30  # per_device
 accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
-max_epochs = 20
+max_epochs = 20  # 447 * 20 = 8940
 optim_type = AdamW
 lr = 2e-4
 betas = (0.9, 0.999)
@@ -119,7 +119,7 @@ max_norm = 1  # grad clip
 warmup_ratio = 0.03
 
 # Save
-save_steps = 5
+save_steps = 75
 save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
@@ -273,7 +273,7 @@ default_hooks = dict(
     # save checkpoint per `save_steps`.
     checkpoint=dict(
         type=CheckpointHook,
-        by_epoch=True,
+        by_epoch=False,
         interval=save_steps,
         max_keep_ckpts=save_total_limit,
     ),

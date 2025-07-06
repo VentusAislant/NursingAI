@@ -84,7 +84,7 @@ max_norm = 1  # grad clip
 warmup_ratio = 0.03
 
 # Save
-save_steps = 5
+save_steps = 500
 save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
@@ -244,7 +244,7 @@ default_hooks = dict(
     # save checkpoint per `save_steps`.
     checkpoint=dict(
         type=CheckpointHook,
-        by_epoch=True,
+        by_epoch=False,
         interval=save_steps,
         max_keep_ckpts=save_total_limit,
     ),
