@@ -1,8 +1,8 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=7
 
 # ["DeepSeek_R1_Distill_Qwen_7B", "MMedIns_Llama3_8B"]
-BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
-#BASE_MODEL="MMedIns_Llama3_8B"
+#BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
+BASE_MODEL="MMedIns_Llama3_8B"
 
 # ["patient", "expert", "teacher"]
 ROLE="teacher"
