@@ -114,9 +114,7 @@ tokenizer = dict(
     pretrained_model_name_or_path=pretrained_model_name_or_path,
     trust_remote_code=True,
     padding_side="right",
-    eos_token="<|im_end|>",
 )
-
 model = dict(
     type=SupervisedFinetune,
     use_varlen_attn=use_varlen_attn,
