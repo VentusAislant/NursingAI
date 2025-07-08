@@ -29,7 +29,6 @@ for lora_rank in "${LORA_RANKS[@]}"; do
             
             # Add a separator between runs
             echo "--------------------------------------------------"
-            exit
         done
     done
 done
