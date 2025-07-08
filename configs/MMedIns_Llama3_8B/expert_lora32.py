@@ -63,7 +63,7 @@ use_varlen_attn = False
 
 # Data
 data_path = "./data/expert/data.json"
-prompt_template = PROMPT_TEMPLATE.qwen_chat
+prompt_template = PROMPT_TEMPLATE.llama3_chat
 max_length = 10000
 pack_to_max_length = True
 
