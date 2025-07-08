@@ -1,3 +1,5 @@
+#logs/
+
 data/
 data*
 pretrained_models/
@@ -127,7 +129,6 @@ venv.bak/
 docs/modelzoo_statistics.md
 mmdet/.mim
 work_dirs/
-logs/
 ckpts/
 batchscript-*
 compare_2_profiling_data/
