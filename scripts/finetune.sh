@@ -1,14 +1,14 @@
 export CUDA_VISIBLE_DEVICES=7
 
 # ["DeepSeek_R1_Distill_Qwen_7B", "MMedIns_Llama3_8B"]
-#BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
-BASE_MODEL="MMedIns_Llama3_8B"
+BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
+#BASE_MODEL="MMedIns_Llama3_8B"
 
 # ["patient", "expert", "teacher"]
-ROLE="teacher"
+ROLE="patient"
 
 # [32, 64]
-LORA_RANK=32
+LORA_RANK=64
 
 CFG_PATH="./configs/${BASE_MODEL}/${ROLE}_lora${LORA_RANK}.py"
 WORK_DIR="work_dirs/${BASE_MODEL}/${ROLE}/lora_${LORA_RANK}"
