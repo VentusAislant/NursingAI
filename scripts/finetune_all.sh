@@ -2,6 +2,7 @@
 
 # Set CUDA device (adjust as needed for your setup)
 export CUDA_VISIBLE_DEVICES=1
+export DEEPSPEED_PORT=12345
 
 # Define the variables to iterate over
 # BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B" "MMedIns_Llama3_8B")

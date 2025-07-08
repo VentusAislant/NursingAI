@@ -1,4 +1,5 @@
 export CUDA_VISIBLE_DEVICES=7
+export DEEPSPEED_PORT=23456
 
 # ["DeepSeek_R1_Distill_Qwen_7B", "MMedIns_Llama3_8B"]
 BASE_MODEL="DeepSeek_R1_Distill_Qwen_7B"
