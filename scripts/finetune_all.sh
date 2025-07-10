@@ -5,10 +5,10 @@ export CUDA_VISIBLE_DEVICES=1
 export DEEPSPEED_PORT=12345
 
 # Define the variables to iterate over
-# BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B" "MMedIns_Llama3_8B")
-BASE_MODELS=("MMedIns_Llama3_8B")
+BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B" "MMedIns_Llama3_8B")
+#BASE_MODELS=("MMedIns_Llama3_8B")
 ROLES=("patient" "teacher" "expert")
-LORA_RANKS=(32 64)
+LORA_RANKS=(128)
 
 # Loop through all combinations
 for lora_rank in "${LORA_RANKS[@]}"; do

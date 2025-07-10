@@ -58,12 +58,12 @@ def nursing_ai_map_fn(example):
 #                          PART 1  Settings                           #
 #######################################################################
 # Model
-pretrained_model_name_or_path = "pretrained_models/DeepSeek-R1-Distill-Qwen-7B"
+pretrained_model_name_or_path = "pretrained_models/MMed-Llama-3-8B"
 use_varlen_attn = False
 
 # Data
 data_path = "./data/expert/data.json"
-prompt_template = PROMPT_TEMPLATE.qwen_chat
+prompt_template = PROMPT_TEMPLATE.llama3_chat
 max_length = 10000
 pack_to_max_length = True
 
@@ -114,7 +114,6 @@ tokenizer = dict(
     pretrained_model_name_or_path=pretrained_model_name_or_path,
     trust_remote_code=True,
     padding_side="right",
-    eos_token="<|im_end|>",
 )
 
 model = dict(
@@ -138,8 +137,8 @@ model = dict(
     ),
     lora=dict(
         type=LoraConfig,
-        r=64,
-        lora_alpha=64,
+        r=128,
+        lora_alpha=128,
         lora_dropout=0.1,
         bias="none",
         task_type="CAUSAL_LM",

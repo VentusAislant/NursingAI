@@ -137,8 +137,8 @@ model = dict(
     ),
     lora=dict(
         type=LoraConfig,
-        r=32,
-        lora_alpha=32,
+        r=64,
+        lora_alpha=64,
         lora_dropout=0.1,
         bias="none",
         task_type="CAUSAL_LM",
