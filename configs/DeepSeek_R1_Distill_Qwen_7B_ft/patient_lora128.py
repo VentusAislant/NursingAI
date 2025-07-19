@@ -98,7 +98,7 @@ use_varlen_attn = False
 
 # Data
 data_path = "./data/patient/data.json"
-prompt_template = PROMPT_TEMPLATE.qwen_chat
+prompt_template = PROMPT_TEMPLATE.deepseek_qwen
 max_length = 2048
 pack_to_max_length = True
 
@@ -126,7 +126,7 @@ save_total_limit = -1  # Maximum checkpoints to keep (-1 means unlimited)
 evaluation_freq = 5000
 SYSTEM = ""
 
-evaluation_inputs = ["请模拟一位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，与我进行护理问诊。", "好的，我来扮演这位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，我们开始对话吧。"]
+evaluation_inputs = ["请模拟一位患有会咽囊肿、慢性扁桃体炎和慢性中耳炎的患者，与我进行护理问诊。"]
 
 #######################################################################
 #                      PART 2  Model & Tokenizer                      #

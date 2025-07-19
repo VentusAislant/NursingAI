@@ -143,6 +143,14 @@ PROMPT_TEMPLATE = ConfigDict(
         SUFFIX_AS_EOS=True,
         STOP_WORDS=["<｜end▁of▁sentence｜>"],
     ),
+    deepseek_qwen=dict(
+        SYSTEM="{system}\n\n",
+        INSTRUCTION="<｜User｜>{input}<｜Assistant｜>",
+        SUFFIX="<｜end▁of▁sentence｜>",
+        SUFFIX_AS_EOS=True,
+        SEP="\n",
+        STOP_WORDS=["<｜end▁of▁sentence｜>"],
+    ),
     mistral=dict(
         SYSTEM=("[INST] {system} [/INST]\n"),
         INSTRUCTION=("[INST] {input} [/INST]"),

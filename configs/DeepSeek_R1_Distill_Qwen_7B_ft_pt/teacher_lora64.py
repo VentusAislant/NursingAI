@@ -58,7 +58,7 @@ use_varlen_attn = False
 
 # Data
 data_path = "./data/teacher/data.json"
-prompt_template = PROMPT_TEMPLATE.qwen_chat
+prompt_template = PROMPT_TEMPLATE.deepseek_qwen
 max_length = 2048
 pack_to_max_length = True
 
@@ -92,7 +92,6 @@ SYSTEM = """您是一位专业的护理问诊教师，擅长解答用户关于�
 
 evaluation_inputs = [
     "问诊内容包括什么？",
-    "问诊内容包含患者的一般资料，现病史，既往史，家族史，个人史，健康感知-健康管理，营养代谢，排泄，活动-运动，睡眠-休息，认知-感知，角色-关系，性-生殖，压力应对、自我感知、自我概念，价值-信念。"
 ]
 
 #######################################################################

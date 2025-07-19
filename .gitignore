@@ -5,6 +5,9 @@ data*
 pretrained_models/
 pretrained_models*
 
+checkpoints/
+checkpoints*
+
 work_dirs/
 work_dirs*
 
