@@ -8,8 +8,9 @@ work_dir="work_dirs"
 model_save_dir="checkpoints"
 
 # Define the variables to iterate over
-#BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B_ft" "MMedIns_Llama3_8B_ft" "DeepSeek_R1_Distill_Qwen_7B_ft_pt" "MMedIns_Llama3_8B_ft_pt")
-BASE_MODELS=("MMedIns_Llama3_8B_ft" "MMedIns_Llama3_8B_ft_pt")
+BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B_ft" "MMedIns_Llama3_8B_ft" "DeepSeek_R1_Distill_Qwen_7B_ft_pt" "MMedIns_Llama3_8B_ft_pt")
+#BASE_MODELS=("DeepSeek_R1_Distill_Qwen_7B_ft" "DeepSeek_R1_Distill_Qwen_7B_ft_pt")
+#BASE_MODELS=("MMedIns_Llama3_8B_ft" "MMedIns_Llama3_8B_ft_pt")
 ROLES=("patient" "teacher" "expert")
 LORA_RANKS=(32 64 128)
 

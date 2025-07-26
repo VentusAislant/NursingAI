@@ -12,6 +12,8 @@ work_dirs/
 work_dirs*
 
 # Byte-compiled / optimized / DLL files
+.gradio/
+.gradio*
 __pycache__/
 *.py[cod]
 *$py.class
