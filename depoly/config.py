@@ -140,11 +140,11 @@ CHAT_CONFIG = {
 #     "show_error": True
 # }
 
-# 允许外部访问
+# 允许校园网访问
 WEB_CONFIG = {
-    "server_name": "0.0.0.0",  # 可以改为 "localhost" 如果遇到502错误
+    "server_name": "0.0.0.0",
     "server_port": 7860,
-    "share": True,
+    "share": False,
     "debug": True,
     "title": "NursingAI 智能聊天系统",
     "theme": "soft",
