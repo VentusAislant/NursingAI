@@ -511,7 +511,7 @@ with gr.Blocks(title=WEB_CONFIG["title"], theme=gr.themes.Soft()) as demo:
             
             # 高级设置面板
             initial_role = model_manager.get_roles()[0] if model_manager.get_roles() else None
-            initial_max_tokens = ROLE_MAX_TOKENS.get(initial_role, 1024) if initial_role else 1024
+            initial_max_tokens = 256 if initial_lora_model is None else ROLE_MAX_TOKENS.get(initial_role, 1024)
             
             with gr.Accordion("🔧 高级设置", open=False):
                 max_new_tokens_slider = gr.Slider(
@@ -574,13 +574,24 @@ with gr.Blocks(title=WEB_CONFIG["title"], theme=gr.themes.Soft()) as demo:
         outputs=[iter_dropdown]
     )
     
-    # 角色切换时更新最大token数
-    def update_max_tokens(role):
+    # 初始化max_token
+    initial_max_tokens = 256 if initial_lora_model is None else ROLE_MAX_TOKENS.get(initial_role, 1024)
+
+    # 修改update_max_tokens函数
+    def update_max_tokens(role, lora_model):
+        if lora_model is None:
+            return 256
         return ROLE_MAX_TOKENS.get(role, 1024)
-    
+
+    # 修改事件绑定
     role_dropdown.change(
         fn=update_max_tokens,
-        inputs=[role_dropdown],
+        inputs=[role_dropdown, lora_model_dropdown],
+        outputs=[max_new_tokens_slider]
+    )
+    lora_model_dropdown.change(
+        fn=update_max_tokens,
+        inputs=[role_dropdown, lora_model_dropdown],
         outputs=[max_new_tokens_slider]
     )
     
