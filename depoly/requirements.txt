@@ -1,0 +1,6 @@
+# NursingAI 部署依赖
+gradio==4.16.0
+torch
+transformers
+peft
+pyperclip>=1.8.0 

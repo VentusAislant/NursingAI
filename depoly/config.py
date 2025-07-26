@@ -97,6 +97,16 @@ MODEL_CONFIG = {
     "offload_folder": "offload"  # offload文件夹
 }
 
+# Web界面配置
+WEB_CONFIG = {
+    "server_name": "0.0.0.0",  # 改为0.0.0.0允许外部访问
+    "server_port": 12489,
+    "share": False,  # 启用Gradio分享功能
+    "debug": True,
+    "title": "NursingAI 智能聊天系统",
+    "theme": "soft",
+    "show_error": True
+}
 
 # 角色特定的系统提示词
 ROLE_SYSTEM_PROMPTS = {
@@ -122,31 +132,17 @@ ROLE_SYSTEM_PROMPTS = {
 步骤 2： 基于护生提出的问题，延伸出2–3个相关问题，引导其进一步思考或学习，并询问是否希望继续了解相关内容。"""
 }
 
+# 角色默认最大token配置
+ROLE_MAX_TOKENS = {
+    "expert": 10000,
+    "teacher": 1024,
+    "patient": 1024
+}
+
 # 聊天配置
 CHAT_CONFIG = {
-    "system_prompt": "你是一个专业的医疗AI助手，请根据选择的角色提供相应的帮助。",  # 如果模型不再列表中，默认使用这个提示词
+    "system_prompt": "你是一个专业的医疗AI助手，请根据选择的角色提供相应的帮助。",
     "default_response": "请先加载模型后再开始对话。"
 }
 
-
-# Web界面配置
-# WEB_CONFIG = {
-#     "server_name": "127.0.0.1",  # 可以改为 "localhost" 如果遇到502错误
-#     "server_port": 7860,
-#     "share": False,
-#     "debug": True,
-#     "title": "NursingAI 智能聊天系统",
-#     "theme": "soft",
-#     "show_error": True
-# }
-
-# 允许校园网访问
-WEB_CONFIG = {
-    "server_name": "0.0.0.0",
-    "server_port": 7860,
-    "share": False,
-    "debug": True,
-    "title": "NursingAI 智能聊天系统",
-    "theme": "soft",
-    "show_error": True
-}
+ 
